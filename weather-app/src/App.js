@@ -19,14 +19,7 @@ function App() {
     return `${day} ${date} ${month} ${year}`
   }
 
-
   const [weatherData, setWeatherData] = useState({});
-  const [description,setDescription] = useState("");
-  const [temp,setTemp] = useState("");
-  const [maxTemp, setMaxTemp] = useState("");
-  const [minTemp, setMinTemp] = useState("");
-  const [humidity,setHumidity] = useState("");
-  const [country, setCountry] = useState("");
   const [inputCity,setInputCity] = useState("");
   const [isVisible, setIsVisible] = useState(false);
   
@@ -43,15 +36,7 @@ function App() {
    setWeatherData(weatherApiJson);
    setInputCity("");
    setIsVisible(true);
-   
-  
-   setDescription(weatherApiJson.weather[0].description);
-   setMaxTemp(Math.floor(weatherApiJson.main.temp_max - 273.25));
-   setMinTemp(Math.floor(weatherApiJson.main.temp_min - 273.25));
-   setHumidity(weatherApiJson.main.humidity);
-   setTemp(Math.floor(weatherApiJson.main.temp - 273.15));
-   setCountry(`${weatherApiJson.name}, ${weatherApiJson.sys.country}`);
-
+ 
    
  };
  const inputHandler = (e)=>{
@@ -75,38 +60,38 @@ function App() {
       </InputGroup>
       
         < >
-        {/* {!weatherData.name ?(
+        {!weatherData.name ?(
+          <h4 className="text-center">"Please write a city name"</h4>
           
+        ): (
           <Card className="cards mt-5" style={{width:"30rem", visibility: isVisible ? "visible" : "hidden"}}>
-            <h4>"Please write a city name"</h4>
-          </Card>
-        ): ( */}
-          <Card className="cards mt-5" style={{width:"30rem", visibility: isVisible ? "visible" : "hidden"}}>
-
-        <h3 className="text-center mt-3">{country}</h3>
+            <div className="d-flex justify-content-center">
+        <h3 className="text-center mt-3 m-1 ">{ weatherData.name}</h3>
+        <h3 className="text-center mt-3 m-1">{weatherData.sys.country}</h3>
+        </div>
         <h6 className="text-center ">{getCurrentDate(new Date())}</h6>
         <Card.Body className="cardBody text-center">
           <Card.Text>
             <i className="wi wi-day-sunny display-1 mt-4"></i>
           </Card.Text>
-          <Card.Title> <h4>{description}</h4></Card.Title>
+          <Card.Title> <h4>{weatherData.weather[0].description}</h4></Card.Title>
           <Card.Text>
-            <h1> {temp}°</h1>
+            <h1> {Math.floor(weatherData.main.temp - 273.15)}°</h1>
           </Card.Text>
         </Card.Body>
         <Card.Body className="cardBody2">
           <Card.Text>
-            max: {maxTemp}°
+            max: {Math.floor(weatherData.main.temp_max - 273.15)}°
           </Card.Text>
           <Card.Text>
-            min: {minTemp}°
+            min: {Math.floor(weatherData.main.temp_min - 273.15)}°
           </Card.Text>
           <Card.Text>
-           humidity: {humidity}
+           humidity: {weatherData.main.humidity}
           </Card.Text>
         </Card.Body>
       </Card>
-        {/* )} */}
+        )}
         </>
      
     </div>

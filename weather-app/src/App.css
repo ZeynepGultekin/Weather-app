@@ -1,0 +1,11 @@
+.cards{
+  display: flex;
+  margin:  auto;
+}
+.cardBody2{
+  display: flex;
+ justify-content: space-around;
+}
+.inputGroup{
+  margin: auto;
+}
